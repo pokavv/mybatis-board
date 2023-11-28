@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: local
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: debug
+    hello:
+      board:
+        repository: trace
+
+# MyBatis
+mybatis:
+  type-aliases-package: hello.board.domain
+  configuration:
+    map-underscore-to-camel-case: true
