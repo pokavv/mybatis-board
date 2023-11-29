@@ -3,26 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hello.board.repository.post.PostMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into post_table (title, writer_id, content, date)
-        values (#{title}, #{writerId}, #{content}, #{date})
+        insert into post_table (title, writer_id, content, post_date)
+        values (#{title}, #{writerId}, #{content}, #{postDate})
     </insert>
 
     <update id="update">
         update post_table
         set title=#{updateParam.title},
             content=#{updateParam.content},
-            date=#{updateParam.date}
+            post_date=#{updateParam.postDate}
         where id=#{id}
     </update>
 
     <select id="findById" resultType="Post">
-        select id, title, writer_id, content, date
+        select id, title, writer_id, content, post_date
         from post_table
         where id=#{id}
     </select>
 
     <select id="findAll" resultType="Post">
-        select id, title, writer_id, content, date
+        select id, title, writer_id, content, post_date
         from post_table
         <where>
             <if test="writerId != null and writerId != ''">

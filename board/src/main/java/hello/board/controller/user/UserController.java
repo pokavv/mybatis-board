@@ -36,7 +36,7 @@ public class UserController {
 
     @GetMapping("/add")
     public String addForm() {
-        return "addForm";
+        return "addUserForm";
     }
 
     @PostMapping("/add")
@@ -52,7 +52,7 @@ public class UserController {
     public String editForm(@PathVariable Long id, Model model) {
         User user = userService.findById(id).get();
         model.addAttribute("user", user);
-        return "editForm";
+        return "editUserForm";
     }
 
     @PostMapping("/{id}/edit")

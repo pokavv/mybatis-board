@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/bootstrap.min.css}"
           href="css/bootstrap.min.css" rel="stylesheet">
-    <title>users</title>
+    <title>게시판</title>
 </head>
 <body>
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>회원 목록</h2>
+        <h2>게시판</h2>
     </div>
-    <form th:object="${userSearch}" method="get" class="form-inline">
+    <form th:object="${postSearch}" method="get" class="form-inline">
         <div class="row">
             <div class="col">
-                <input type="text" th:field="*{loginId}" class="form-control" placeholder="회원ID"/>
+                <input type="text" th:field="*{title}" class="form-control" placeholder="제목"/>
             </div>
             <div class="col">
-                <input type="text" th:field="*{name}" class="form-control" placeholder="회원명"/>
+                <input type="text" th:field="*{writerId}" class="form-control" placeholder="작성자"/>
             </div>
             <div class="col">
                 <button type="submit" class="btn btn-secondary mb-2">검색</button>
@@ -26,9 +26,9 @@
             <div class="col">
                 <div class="col">
                     <button class="btn btn-primary float-end"
-                            onclick="location.href='addUserForm.html'"
-                            th:onclick="|location.href='@{/users/add}'|"
-                            type="button">회원가입
+                            onclick="location.href='addPostForm.html'"
+                            th:onclick="|location.href='@{/posts/add}'|"
+                            type="button">작성
                     </button>
                 </div>
             </div>
@@ -40,21 +40,27 @@
         <table class="table">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>이름</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>게시일</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
+            <tr th:each="post : ${posts}">
                 <td>
-                    <a href="user.html" th:href="@{/users/{id}(id=${user.id})}" th:text="${user.loginId}">
-                        회원ID
+                    <a href="post.html" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">
+                        제목
                     </a>
                 </td>
                 <td>
-                    <a href="user.html" th:href="@{/users/{id}(id=${user.id})}" th:text="${user.name}">
-                        회원명
+                    <a href="post.html" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.writerId}">
+                        작성자
                     </a>
+                </td>
+                <td>
+                    <p th:text="${#temporals.format(post.postDate, 'yyyy/MM/dd')}">
+                        게시일
+                    </p>
                 </td>
             </tr>
             </tbody>

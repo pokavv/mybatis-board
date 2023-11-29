@@ -9,13 +9,13 @@ public class PostUpdateDto {
 
     private String title;
     private String content;
-    private LocalDate date;
+    private LocalDate postDate;
 
     public PostUpdateDto() {}
 
-    public PostUpdateDto(String title, String content, LocalDate date) {
+    public PostUpdateDto(String title, String content, LocalDate postDate) {
         this.title = title;
         this.content = content;
-        this.date = date;
+        this.postDate = postDate;
     }
 }

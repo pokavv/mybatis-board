@@ -10,6 +10,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String mainPage() {
-        return "mainPage";
+        return "redirect:/posts";
     }
 }
