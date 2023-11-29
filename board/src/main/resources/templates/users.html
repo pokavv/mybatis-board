@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+    <title>users</title>
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>회원 목록</h2>
+    </div>
+    <form th:object="${userSearch}" method="get" class="form-inline">
+        <div class="row">
+            <div class="col">
+                <input type="text" th:field="*{loginId}" class="form-control" placeholder="회원ID"/>
+            </div>
+            <div class="col">
+                <input type="text" th:field="*{name}" class="form-control" placeholder="회원명"/>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-secondary mb-2">검색</button>
+            </div>
+            <div class="col"></div>
+            <div class="col">
+                <div class="col">
+                    <button class="btn btn-primary float-end"
+                            onclick="location.href='addForm.html'"
+                            th:onclick="|location.href='@{/users/add}'|"
+                            type="button">회원가입
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td>
+                    <a href="user.html" th:href="@{/users/{id}(id=${user.id})}" th:text="${user.loginId}">
+                        회원ID
+                    </a>
+                </td>
+                <td>
+                    <a href="user.html" th:href="@{/users/{id}(id=${user.id})}" th:text="${user.name}">
+                        회원명
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

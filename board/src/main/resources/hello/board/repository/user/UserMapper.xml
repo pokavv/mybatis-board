@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.board.repository.user.UserMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into user_table (login_id, pw, name, email)
+        values (#{loginId}, #{pw}, #{name}, #{email})
+    </insert>
+
+    <update id="update">
+        update user_table
+        set login_id=#{updateParam.loginId},
+            pw=#{updateParam.pw},
+            name=#{updateParam.name},
+            email=#{updateParam.email}
+        where id=#{id}
+    </update>
+
+    <select id="findById" resultType="User">
+        select id, login_id, pw, name, email
+        from user_table
+        where id=#{id}
+    </select>
+
+    <select id="findAll" resultType="User">
+        select id, login_id, pw, name, email
+        from user_table
+        <where>
+            <if test="loginId != null and loginId != ''">
+                and login_id like concat('%',#{loginId},'%')
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete">
+        delete
+        from user_table
+        where id=#{id}
+    </delete>
+</mapper>
