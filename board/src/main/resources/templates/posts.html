@@ -48,12 +48,12 @@
             <tbody>
             <tr th:each="post : ${posts}">
                 <td>
-                    <a href="post.html" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">
+                    <p th:text="${post.title}">
                         제목
-                    </a>
+                    </p>
                 </td>
                 <td>
-                    <a href="post.html" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.writerId}">
+                    <a href="post.html" th:href="@{/posts/{id}(id=${post.postId})}" th:text="${post.loginId}">
                         작성자
                     </a>
                 </td>

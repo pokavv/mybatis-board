@@ -7,8 +7,9 @@ import java.time.LocalDate;
 @Data
 public class Post {
 
-    private Long id; // pk
-    private Long writerId; // fk (User.id)
+    private Long postId; // pk
+    private Long writerId; // fk
+    private String loginId; // join
     private String title;
     private String content;
     private LocalDate postDate;
@@ -16,8 +17,9 @@ public class Post {
     // 기본 생성자
     public Post() {}
 
-    public Post(Long writerId, String title, String content, LocalDate postDate) {
+    public Post(Long writerId, String loginId, String title, String content, LocalDate postDate) {
         this.writerId = writerId;
+        this.loginId = loginId;
         this.title = title;
         this.content = content;
         this.postDate = postDate;

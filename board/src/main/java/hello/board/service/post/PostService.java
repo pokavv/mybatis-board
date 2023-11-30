@@ -11,11 +11,11 @@ public interface PostService {
 
     Post save(Post post);
 
-    void update(Long id, PostUpdateDto updateParam);
+    void update(Long postId, PostUpdateDto updateParam);
 
-    Optional<Post> findById(Long id);
+    Optional<Post> findById(Long postId);
 
     List<Post> findAll(PostSearchCond cond);
 
-    void delete(Long id);
+    void delete(Long postId);
 }

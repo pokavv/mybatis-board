@@ -22,13 +22,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void update(Long id, PostUpdateDto updateParam) {
-        postRepository.update(id, updateParam);
+    public void update(Long postId, PostUpdateDto updateParam) {
+        postRepository.update(postId, updateParam);
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
-        return postRepository.findById(id);
+    public Optional<Post> findById(Long postId) {
+        return postRepository.findById(postId);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void delete(Long id) {
-        postRepository.delete(id);
+    public void delete(Long postId) {
+        postRepository.delete(postId);
     }
 }

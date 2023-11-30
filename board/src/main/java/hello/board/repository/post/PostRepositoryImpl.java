@@ -5,6 +5,7 @@ import hello.board.dto.post.PostUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,18 +18,19 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post save(Post post) {
+        post.setPostDate(LocalDate.now());
         postMapper.save(post);
         return post;
     }
 
     @Override
-    public void update(Long id, PostUpdateDto updateParam) {
-        postMapper.update(id, updateParam);
+    public void update(Long postId, PostUpdateDto updateParam) {
+        postMapper.update(postId, updateParam);
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
-        return postMapper.findById(id);
+    public Optional<Post> findById(Long postId) {
+        return postMapper.findById(postId);
     }
 
     @Override
@@ -37,8 +39,8 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public void delete(Long id) {
-        postMapper.delete(id);
+    public void delete(Long postId) {
+        postMapper.delete(postId);
     }
 
 }

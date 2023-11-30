@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -31,9 +30,9 @@ public class PostController {
         return "posts";
     }
 
-    @GetMapping("/{id}")
-    public String post(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id).get();
+    @GetMapping("/{postId}")
+    public String post(@PathVariable Long postId, Model model) {
+        Post post = postService.findById(postId).get();
         model.addAttribute("post", post);
         log.info("post = {}", post);
         return "post";
@@ -48,21 +47,27 @@ public class PostController {
     public String addPost(@ModelAttribute Post post,
                           RedirectAttributes redirectAttributes) {
         Post savePost = postService.save(post);
-        redirectAttributes.addAttribute("id", savePost.getId());
+        redirectAttributes.addAttribute("postId", savePost.getPostId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/posts/{id}";
+        return "redirect:/posts/{postId}";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id).get();
+    @GetMapping("/{postId}/edit")
+    public String editForm(@PathVariable Long postId, Model model) {
+        Post post = postService.findById(postId).get();
         return "editPostForm";
     }
 
-    @PostMapping("/{id}/edit")
-    public String edit(@PathVariable Long id,
+    @PostMapping("/{postId}/edit")
+    public String edit(@PathVariable Long postId,
                        @ModelAttribute PostUpdateDto updateParam) {
-        postService.update(id, updateParam);
-        return "redirect:/posts/{id}";
+        postService.update(postId, updateParam);
+        return "redirect:/posts/{postId}";
+    }
+
+    @RequestMapping("posts/{postId}/delete")
+    public String delete(@PathVariable Long postId) {
+        postService.delete(postId);
+        return "redirect:/posts";
     }
 }

@@ -27,7 +27,7 @@
     <div>
         <label for="writerId">작성자</label>
         <input type="text" id="writerId" name="writerId" class="form-control"
-               value="작성자" th:value="${post.writerId}" readonly>
+               value="작성자" th:value="${post.loginId}" readonly>
     </div>
     <div>
         <label for="content">내용</label>
@@ -46,7 +46,7 @@
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editPostForm.html'"
-                    th:onclick="|location.href='@{/posts/{id}/post(id=${post.id})}'|"
+                    th:onclick="|location.href='@{/posts/{id}/post(id=${post.postId})}'|"
                     type="button">수정
             </button>
         </div>
@@ -55,6 +55,13 @@
                     onclick="location.href='posts.html'"
                     th:onclick="|location.href='@{/posts}'|"
                     type="button">목록
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-warning btn-lg"
+                    onclick="location.href='/delete'"
+                    th:onclick="|location.href='@{posts/{postId}/delete(postId=${post.postId})}'|"
+                    type="button">삭제
             </button>
         </div>
     </div>

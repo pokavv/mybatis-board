@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hello.board.repository.post.PostMapper">
-    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" useGeneratedKeys="true" keyProperty="postId">
         insert into post_table (title, writer_id, content, post_date)
         values (#{title}, #{writerId}, #{content}, #{postDate})
     </insert>
@@ -12,31 +12,39 @@
         set title=#{updateParam.title},
             content=#{updateParam.content},
             post_date=#{updateParam.postDate}
-        where id=#{id}
+        where post_id=#{postId}
     </update>
 
     <select id="findById" resultType="Post">
-        select id, title, writer_id, content, post_date
+        select post_id, title, writer_id, content, post_date
         from post_table
-        where id=#{id}
+        where post_id=#{postId}
     </select>
 
+<!--    <select id="findAll" resultType="Post">-->
+<!--        select id, title, writer_id, content, post_date-->
+<!--        from post_table-->
+<!--        <where>-->
+<!--            <if test="writerId != null and writerId != ''">-->
+<!--                and writer_id like concat('%',#{writerId},'%')-->
+<!--            </if>-->
+<!--            <if test="title != null and title != ''">-->
+<!--                and title like concat('%',#{title},'%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
     <select id="findAll" resultType="Post">
-        select id, title, writer_id, content, post_date
-        from post_table
-        <where>
-            <if test="writerId != null and writerId != ''">
-                and writer_id like concat('%',#{writerId},'%')
-            </if>
-            <if test="title != null and title != ''">
-                and title like concat('%',#{title},'%')
-            </if>
-        </where>
+        select post_id, title, writer_id, content, post_date, login_id
+        from user_table
+        left outer join post_table
+        on user_table.id = post_table.writer_id
+        where writer_id is not null
     </select>
 
     <select id="delete">
         delete
         from post_table
-        where id=#{id}
+        where post_id=#{postId}
     </select>
 </mapper>
