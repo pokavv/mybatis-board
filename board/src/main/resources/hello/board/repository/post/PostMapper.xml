@@ -7,11 +7,19 @@
         values (#{title}, #{writerId}, #{content}, #{postDate})
     </insert>
 
+<!--    <update id="update">-->
+<!--        update post_table-->
+<!--        set title=#{updateParam.title},-->
+<!--            content=#{updateParam.content},-->
+<!--            post_date=#{updateParam.postDate}-->
+<!--        where post_id=#{postId}-->
+<!--    </update>-->
+
     <update id="update">
         update post_table
         set title=#{updateParam.title},
             content=#{updateParam.content},
-            post_date=#{updateParam.postDate}
+            post_date = current_timestamp()
         where post_id=#{postId}
     </update>
 

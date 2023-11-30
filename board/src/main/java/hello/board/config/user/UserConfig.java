@@ -1,9 +1,10 @@
-package hello.board.cofig.user;
+package hello.board.config.user;
 
 import hello.board.repository.user.UserMapper;
 import hello.board.repository.user.UserRepository;
 import hello.board.repository.user.UserRepositoryImpl;
 import hello.board.service.login.LoginService;
+import hello.board.service.login.SessionManager;
 import hello.board.service.user.UserService;
 import hello.board.service.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,11 @@ public class UserConfig {
     @Bean
     LoginService loginService() {
         return new LoginService(userRepository());
+    }
+
+    @Bean
+    SessionManager sessionManager() {
+        return new SessionManager();
     }
 
     @Bean

@@ -55,6 +55,9 @@ public class PostController {
     @GetMapping("/{postId}/edit")
     public String editForm(@PathVariable Long postId, Model model) {
         Post post = postService.findById(postId).get();
+        model.addAttribute("post", post);
+        model.addAttribute("postDate", post.getPostDate());
+        log.info("post={}", post);
         return "editPostForm";
     }
 

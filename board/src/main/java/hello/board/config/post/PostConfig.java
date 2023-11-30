@@ -1,4 +1,4 @@
-package hello.board.cofig.post;
+package hello.board.config.post;
 
 import hello.board.repository.post.PostMapper;
 import hello.board.repository.post.PostRepository;

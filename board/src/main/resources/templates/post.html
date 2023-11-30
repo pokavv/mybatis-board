@@ -46,7 +46,7 @@
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editPostForm.html'"
-                    th:onclick="|location.href='@{/posts/{id}/post(id=${post.postId})}'|"
+                    th:onclick="|location.href='@{/posts/{id}/edit(id=${post.postId})}'|"
                     type="button">수정
             </button>
         </div>

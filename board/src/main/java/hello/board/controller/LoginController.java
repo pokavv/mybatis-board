@@ -3,6 +3,11 @@ package hello.board.controller;
 import hello.board.domain.user.User;
 import hello.board.service.login.LoginForm;
 import hello.board.service.login.LoginService;
+import hello.board.service.login.SessionManager;
+import hello.board.session.SessionConst;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
 
     private final LoginService loginService;
+    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm")LoginForm form) {
@@ -26,19 +33,23 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute LoginForm form,
-                        BindingResult bindingResult) {
+                        BindingResult bindingResult,
+                        @RequestParam(defaultValue = "posts") String redirectURL,
+                        HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "loginForm";
         }
 
         User loginUser = loginService.login(form.getLoginId(), form.getPassword());
-        log.info("login 시도 {}", loginUser);
+        log.info("login? {}", loginUser);
 
         if (loginUser == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "loginForm";
         }
 
-        return "redirect:/";
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+        return "redirect:" + redirectURL;
     }
 }
