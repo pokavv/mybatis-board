@@ -21,4 +21,6 @@ public interface UserMapper {
     List<User> findAll(UserSearchCond cond);
 
     void delete(Long id);
+
+    Optional<User> findByLoginId(String loginId);
 }

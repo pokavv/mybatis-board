@@ -3,6 +3,7 @@ package hello.board.cofig.user;
 import hello.board.repository.user.UserMapper;
 import hello.board.repository.user.UserRepository;
 import hello.board.repository.user.UserRepositoryImpl;
+import hello.board.service.login.LoginService;
 import hello.board.service.user.UserService;
 import hello.board.service.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,11 @@ import org.springframework.context.annotation.Configuration;
 public class UserConfig {
 
     private final UserMapper userMapper;
+
+    @Bean
+    LoginService loginService() {
+        return new LoginService(userRepository());
+    }
 
     @Bean
     public UserService userService() {

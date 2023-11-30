@@ -40,4 +40,11 @@ public class UserRepositoryImpl implements UserRepository {
     public void delete(Long id) {
         userMapper.delete(id);
     }
+
+    // 로그인 관련
+
+    @Override
+    public Optional<User> findByLoginId(String loginId) {
+        return userMapper.findByLoginId(loginId);
+    }
 }

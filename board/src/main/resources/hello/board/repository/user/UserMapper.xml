@@ -40,4 +40,14 @@
         from user_table
         where id=#{id}
     </delete>
+
+    <select id="findByLoginId" resultType="User">
+        select id, login_id, pw, name, email
+        from user_table
+        <where>
+            <if test="loginId != null and loginId != ''">
+                and login_id=#{loginId}
+            </if>
+        </where>
+    </select>
 </mapper>

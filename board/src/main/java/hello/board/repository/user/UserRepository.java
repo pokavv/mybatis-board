@@ -17,4 +17,7 @@ public interface UserRepository {
     List<User> findAll(UserSearchCond cond);
 
     void delete(Long id);
+
+    // 로그인 관련 로직
+    Optional<User> findByLoginId(String loginId);
 }
