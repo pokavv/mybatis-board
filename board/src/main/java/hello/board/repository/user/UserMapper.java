@@ -1,7 +1,9 @@
 package hello.board.repository.user;
 
+import hello.board.controller.LoginController;
 import hello.board.domain.user.User;
 import hello.board.dto.user.UserUpdateDto;
+import hello.board.session.SessionInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -5,8 +5,8 @@ import hello.board.service.login.LoginForm;
 import hello.board.service.login.LoginService;
 import hello.board.service.login.SessionManager;
 import hello.board.session.SessionConst;
+import hello.board.session.SessionInfo;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm")LoginForm form) {
@@ -34,7 +33,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute LoginForm form,
                         BindingResult bindingResult,
-                        @RequestParam(defaultValue = "posts") String redirectURL,
+                        @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "loginForm";
@@ -50,6 +49,7 @@ public class LoginController {
 
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+
         return "redirect:" + redirectURL;
     }
 }

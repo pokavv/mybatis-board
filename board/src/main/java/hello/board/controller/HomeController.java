@@ -3,9 +3,11 @@ package hello.board.controller;
 import hello.board.domain.user.User;
 import hello.board.repository.user.UserRepository;
 import hello.board.service.login.SessionManager;
+import hello.board.session.SessionConst;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,20 +30,26 @@ public class HomeController {
     @GetMapping("/")
     public String homeLogin(HttpServletRequest request, Model model) {
         // sessionManager 에 저장된 회원 정보 조회
-        User user = (User) sessionManager.getSession(request);
-        if (user == null) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
             return "home";
         }
 
-        // login
-        model.addAttribute("user", user);
-        log.info("contained model = {}", model.getAttribute("user"));
+        User loginUser = (User) session.getAttribute(SessionConst.LOGIN_USER);
+        if (loginUser == null) {
+            return "home";
+        }
+
+        model.addAttribute("user", loginUser);
         return "loginHome";
     }
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
-        sessionManager.expire(request);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
     }
 }

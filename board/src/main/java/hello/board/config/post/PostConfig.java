@@ -5,6 +5,8 @@ import hello.board.repository.post.PostRepository;
 import hello.board.repository.post.PostRepositoryImpl;
 import hello.board.service.post.PostService;
 import hello.board.service.post.PostServiceImpl;
+import hello.board.session.SessionInfo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

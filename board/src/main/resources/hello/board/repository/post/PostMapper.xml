@@ -24,8 +24,9 @@
     </update>
 
     <select id="findById" resultType="Post">
-        select post_id, title, writer_id, content, post_date
-        from post_table
+        select post_table.post_id, post_table.title, post_table.content, post_table.post_date, user_table.login_id
+        from user_table right join post_table
+        on post_table.writer_id = user_table.id
         where post_id=#{postId}
     </select>
 

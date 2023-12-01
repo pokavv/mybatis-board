@@ -2,6 +2,9 @@ package hello.board.repository.post;
 
 import hello.board.domain.post.Post;
 import hello.board.dto.post.PostUpdateDto;
+import hello.board.session.SessionInfo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +22,8 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post save(Post post) {
         post.setPostDate(LocalDate.now());
+        post.setWriterId(post.getCookieWriterId());
+        post.setLoginId(post.getCookieLoginId());
         postMapper.save(post);
         return post;
     }
